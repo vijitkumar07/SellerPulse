@@ -1,0 +1,113 @@
+{
+  "generated_at_utc": "2026-10-28T03:37:50.437324+00:00",
+  "requirements": {
+    "table_counts": {
+      "commission_rules": 2,
+      "customer_reviews": 10000,
+      "disputes": 10000,
+      "entity_events": 524650,
+      "fulfillments": 166667,
+      "order_lines": 166667,
+      "order_sellers": 166667,
+      "orders": 100000,
+      "payout_lines": 18129,
+      "payouts": 18129,
+      "product_listings": 20000,
+      "sellers": 2000
+    },
+    "business_id_formats": {
+      "sellers": {
+        "rows": 2000,
+        "invalid_or_missing": 0,
+        "duplicate_groups": 0,
+        "examples": [],
+        "pattern": "^SELL-\\d{6}$",
+        "status": "PASS"
+      },
+      "product_listings": {
+        "rows": 20000,
+        "invalid_or_missing": 0,
+        "duplicate_groups": 0,
+        "examples": [],
+        "pattern": "^LIST-SELL-\\d{6}-\\d{6}$",
+        "status": "PASS"
+      },
+      "orders": {
+        "rows": 100000,
+        "invalid_or_missing": 0,
+        "duplicate_groups": 0,
+        "examples": [],
+        "pattern": "^ORD-2026-\\d{6}$",
+        "status": "PASS"
+      },
+      "fulfillments": {
+        "rows": 166667,
+        "invalid_or_missing": 0,
+        "duplicate_groups": 0,
+        "examples": [],
+        "pattern": "^FUL-\\d{8}$",
+        "status": "PASS"
+      },
+      "disputes": {
+        "rows": 10000,
+        "invalid_or_missing": 0,
+        "duplicate_groups": 0,
+        "examples": [],
+        "pattern": "^DSP-2026-\\d{6}$",
+        "status": "PASS"
+      },
+      "payouts": {
+        "rows": 18129,
+        "invalid_or_missing": 0,
+        "duplicate_groups": 0,
+        "examples": [],
+        "pattern": "^PAYOUT-2026-\\d{6}$",
+        "status": "PASS"
+      }
+    },
+    "order_lines_business_id": {
+      "missing": 0,
+      "duplicate_groups": 0,
+      "status": "PASS"
+    },
+    "dataset_coverage": {
+      "late_fulfillments_over_48h": 59307,
+      "refund_lines": 1084,
+      "reserve_lines": 2522,
+      "dispute_deduction_lines": 1646,
+      "suspended_sellers": 40,
+      "active_listings_on_suspended_sellers": 1
+    },
+    "data_dictionary": {
+      "model_fields": 73,
+      "missing_fields": [],
+      "generic_notes": [],
+      "missing_numeric_units": [],
+      "missing_status_rules": [],
+      "status": "PASS"
+    },
+    "sql_seed_export": "data/synthetic_seed_export.sql",
+    "source_manifest": "data/source_manifest.json",
+    "seller_metrics": "data/exports/seller_metrics.csv",
+    "lifecycle_and_metrics": {
+      "event_count": 524650,
+      "distinct_entities": 294796,
+      "transition_events": 229854,
+      "entities_with_multiple_events": 229854,
+      "status": "PASS",
+      "seller_metrics_rows": 2000
+    },
+    "same_seed_reproducibility": {
+      "status": "PARTIAL",
+      "reason": "The verification script compares two isolated starter-scale runs with seed 4242. Full-scale reproducibility has not been verified by that script.",
+      "verification_script": "scripts/verify_seed_reproducibility.py",
+      "verified_scale": "starter",
+      "verified_seed": 4242
+    }
+  },
+  "errors": [],
+  "warnings": [],
+  "error_count": 0,
+  "warning_count": 0,
+  "overall_status": "PASS"
+}

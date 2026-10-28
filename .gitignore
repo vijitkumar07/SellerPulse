@@ -1,0 +1,54 @@
+﻿
+# Python virtual environments and cache
+.venv/
+**/.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Node.js dependencies and build output
+node_modules/
+**/node_modules/
+dist/
+coverage/
+
+# Environment files and credentials
+.env
+.env.*
+!.env.example
+
+# Logs and temporary files
+*.log
+*.tmp
+
+# Local databases and backups
+backups/
+*.db
+*.sqlite
+*.sqlite3
+*.bak
+*.bak2
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# Large generated dataset export
+data/synthetic_seed_export.sql
+
+# Generated exports: keep only approved submission artifacts
+data/exports/*
+!data/exports/data_dictionary.csv
+!data/exports/data_dictionary.json
+!data/exports/data_dictionary_audit.json
+!data/exports/data_quality_audit.json
+!data/exports/validation_summary.json
+!data/exports/sellerpulse_six_point_audit.json
+!data/exports/requirements_audit_step1.json
+
+# Local backup files
+backend/app/*.bak*
+*_backup.py
+
+# Generated TypeScript metadata
+*.tsbuildinfo

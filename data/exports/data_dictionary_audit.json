@@ -1,0 +1,84 @@
+{
+  "model_table_count": 12,
+  "model_field_count": 73,
+  "tables": {
+    "sellers": {
+      "model_fields": 5,
+      "documented_fields": 5,
+      "missing_fields": [],
+      "unknown_fields": []
+    },
+    "product_listings": {
+      "model_fields": 6,
+      "documented_fields": 6,
+      "missing_fields": [],
+      "unknown_fields": []
+    },
+    "orders": {
+      "model_fields": 6,
+      "documented_fields": 6,
+      "missing_fields": [],
+      "unknown_fields": []
+    },
+    "order_sellers": {
+      "model_fields": 3,
+      "documented_fields": 3,
+      "missing_fields": [],
+      "unknown_fields": []
+    },
+    "order_lines": {
+      "model_fields": 6,
+      "documented_fields": 6,
+      "missing_fields": [],
+      "unknown_fields": []
+    },
+    "fulfillments": {
+      "model_fields": 7,
+      "documented_fields": 7,
+      "missing_fields": [],
+      "unknown_fields": []
+    },
+    "customer_reviews": {
+      "model_fields": 4,
+      "documented_fields": 4,
+      "missing_fields": [],
+      "unknown_fields": []
+    },
+    "disputes": {
+      "model_fields": 6,
+      "documented_fields": 6,
+      "missing_fields": [],
+      "unknown_fields": []
+    },
+    "commission_rules": {
+      "model_fields": 6,
+      "documented_fields": 6,
+      "missing_fields": [],
+      "unknown_fields": []
+    },
+    "payouts": {
+      "model_fields": 7,
+      "documented_fields": 7,
+      "missing_fields": [],
+      "unknown_fields": []
+    },
+    "payout_lines": {
+      "model_fields": 9,
+      "documented_fields": 9,
+      "missing_fields": [],
+      "unknown_fields": []
+    },
+    "entity_events": {
+      "model_fields": 8,
+      "documented_fields": 8,
+      "missing_fields": [],
+      "unknown_fields": []
+    }
+  },
+  "field_rules_checked": 20,
+  "invalid_field_rules": [],
+  "unknown_dictionary_tables": [],
+  "error_count": 0,
+  "errors": [],
+  "status": "PASS"
+}

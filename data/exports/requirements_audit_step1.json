@@ -1,0 +1,106 @@
+{
+  "id_format_checks": {
+    "sellers": {
+      "rows": 2000,
+      "valid_in_sample": 1000,
+      "sample_size": 1000,
+      "invalid_or_missing_total": 0,
+      "invalid_examples": [],
+      "status": "PASS"
+    },
+    "product_listings": {
+      "rows": 20000,
+      "valid_in_sample": 1000,
+      "sample_size": 1000,
+      "invalid_or_missing_total": 0,
+      "invalid_examples": [],
+      "status": "PASS"
+    },
+    "orders": {
+      "rows": 100000,
+      "valid_in_sample": 1000,
+      "sample_size": 1000,
+      "invalid_or_missing_total": 0,
+      "invalid_examples": [],
+      "status": "PASS"
+    },
+    "fulfillments": {
+      "rows": 166667,
+      "valid_in_sample": 1000,
+      "sample_size": 1000,
+      "invalid_or_missing_total": 0,
+      "invalid_examples": [],
+      "status": "PASS"
+    },
+    "disputes": {
+      "rows": 10000,
+      "valid_in_sample": 1000,
+      "sample_size": 1000,
+      "invalid_or_missing_total": 0,
+      "invalid_examples": [],
+      "status": "PASS"
+    },
+    "payouts": {
+      "rows": 18129,
+      "valid_in_sample": 1000,
+      "sample_size": 1000,
+      "invalid_or_missing_total": 0,
+      "invalid_examples": [],
+      "status": "PASS"
+    }
+  },
+  "status_distributions": {
+    "sellers": {
+      "active": 1960,
+      "suspended": 40
+    },
+    "product_listings": {
+      "active": 19601,
+      "inactive": 399
+    },
+    "orders": {
+      "delivered": 49824,
+      "processing": 25071,
+      "shipped": 25105
+    },
+    "fulfillments": {
+      "delivered": 83087,
+      "processing": 41812,
+      "shipped": 41768
+    },
+    "disputes": {
+      "open": 5001,
+      "resolved": 4999
+    },
+    "payouts": {
+      "paid": 18129
+    }
+  },
+  "coverage_counts": {
+    "shipped_and_delivered": 83087,
+    "delivered_without_shipment_date": 0,
+    "refund_amount_positive_lines": 1084,
+    "reserve_amount_positive_lines": 2522,
+    "dispute_deduction_positive_lines": 1646,
+    "commission_rules_with_effective_dates": 2,
+    "entity_event_count": 524650,
+    "distinct_event_entities": 294796
+  },
+  "table_counts": {
+    "commission_rules": 2,
+    "customer_reviews": 10000,
+    "disputes": 10000,
+    "entity_events": 524650,
+    "fulfillments": 166667,
+    "order_lines": 166667,
+    "order_sellers": 166667,
+    "orders": 100000,
+    "payout_lines": 18129,
+    "payouts": 18129,
+    "product_listings": 20000,
+    "sellers": 2000
+  },
+  "notes": [
+    "This is a diagnostic report. Exact fulfillment ID suffix semantics, late-shipment definition, return coverage, and full lifecycle correctness require comparison with generator rules and documented business rules."
+  ]
+}

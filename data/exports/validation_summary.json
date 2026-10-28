@@ -1,0 +1,127 @@
+{
+  "database": "SQLite",
+  "tables": [
+    {
+      "table": "sellers",
+      "rows": 2000,
+      "csv": "sellers.csv",
+      "json": "sellers.json",
+      "sha256_csv": "b551f9510b90f036c316873343b6ac4d9013ecc580a414f50c2678ee26b8bd0d"
+    },
+    {
+      "table": "product_listings",
+      "rows": 20000,
+      "csv": "product_listings.csv",
+      "json": "product_listings.json",
+      "sha256_csv": "63390d88fddaab54dbb09a38d3d630fbc9daf483d011d89344491ea3663cdb48"
+    },
+    {
+      "table": "orders",
+      "rows": 100000,
+      "csv": "orders.csv",
+      "json": "orders.json",
+      "sha256_csv": "4f682864afc65f0209b5c0280fe59396ab40842637cf845968d7f49b8dba283d"
+    },
+    {
+      "table": "order_lines",
+      "rows": 166667,
+      "csv": "order_lines.csv",
+      "json": "order_lines.json",
+      "sha256_csv": "f805fecd25a824dc768182e13cf3ec78a6e3cbea4e2e9a06a866cd8083b61918"
+    },
+    {
+      "table": "order_sellers",
+      "rows": 166667,
+      "csv": "order_sellers.csv",
+      "json": "order_sellers.json",
+      "sha256_csv": "768dd731bf4e86f0a1c14bb03ab23091facb31152b005241a4fcb09b7698b419"
+    },
+    {
+      "table": "fulfillments",
+      "rows": 166667,
+      "csv": "fulfillments.csv",
+      "json": "fulfillments.json",
+      "sha256_csv": "65edb263df2c05cf9355231bd0b98e787562bf83321f6b802c9f9b6c0251a8e2"
+    },
+    {
+      "table": "customer_reviews",
+      "rows": 10000,
+      "csv": "customer_reviews.csv",
+      "json": "customer_reviews.json",
+      "sha256_csv": "994810fec878485877b941a303992c38c40904b977a379e287a0a9861c830cfd"
+    },
+    {
+      "table": "disputes",
+      "rows": 10000,
+      "csv": "disputes.csv",
+      "json": "disputes.json",
+      "sha256_csv": "662538517d8a52ffe850805fec287a6b2f4982c07ac36dbacdfadd2d76066bbb"
+    },
+    {
+      "table": "commission_rules",
+      "rows": 2,
+      "csv": "commission_rules.csv",
+      "json": "commission_rules.json",
+      "sha256_csv": "1f9fad5d7c44afa83001aff7fd86f0ae06a920c542ece86e3da631714f06184b"
+    },
+    {
+      "table": "payouts",
+      "rows": 16639,
+      "csv": "payouts.csv",
+      "json": "payouts.json",
+      "sha256_csv": "f3c5020abf8428e469508d679f55caf1bda89f326cb30bec2a8146c4bd7032f9"
+    },
+    {
+      "table": "payout_lines",
+      "rows": 16639,
+      "csv": "payout_lines.csv",
+      "json": "payout_lines.json",
+      "sha256_csv": "edd22883a50dc5c5fbde5492a8c573e250fc56c38c20b5b2d204ee4fc8faba09"
+    },
+    {
+      "table": "entity_events",
+      "rows": 293306,
+      "csv": "entity_events.csv",
+      "json": "entity_events.json",
+      "sha256_csv": "ea582c7b53dfaa4b72c9df39163fa70f283cb6c0d6aa199f8333720add99d5e5"
+    }
+  ],
+  "validation_errors": [],
+  "intentional_anomalies": [
+    {
+      "scenario": "payout_before_delivery_or_hold_release",
+      "record_ids": [
+        16636
+      ],
+      "validation_note": "Record IDs and anomaly conditions verified."
+    },
+    {
+      "scenario": "commission_applied_twice",
+      "record_ids": [
+        16637
+      ],
+      "validation_note": "Record IDs and anomaly conditions verified."
+    },
+    {
+      "scenario": "suspended_seller_listing_active",
+      "record_ids": [
+        50
+      ],
+      "validation_note": "Record IDs and anomaly conditions verified."
+    },
+    {
+      "scenario": "dispute_not_deducted",
+      "record_ids": [
+        16638
+      ],
+      "validation_note": "Record IDs and anomaly conditions verified."
+    },
+    {
+      "scenario": "payout_total_mismatch",
+      "record_ids": [
+        16639
+      ],
+      "validation_note": "Record IDs and anomaly conditions verified."
+    }
+  ]
+}

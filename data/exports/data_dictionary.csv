@@ -1,0 +1,74 @@
+﻿table,field,data_type,required,primary_key,foreign_key,unique,default,allowed_values,units,description,validation_notes
+commission_rules,id,INTEGER,True,True,,True,,,,Internal primary key identifying this commission rule.,Required; primary key; Apply documented table-level business rules.
+commission_rules,seller_id,INTEGER,False,False,sellers.id,False,,,,Optional seller-specific scope; null means the rule applies to all sellers.,Nullable; foreign key to sellers.id; Apply documented table-level business rules.
+commission_rules,rate,FLOAT,True,False,,False,,,fraction; 0.10 = 10%,Commission fraction; 0.10 represents 10 percent.,Required; Units: fraction; 0.10 = 10%.
+commission_rules,is_active,BOOLEAN,True,False,,False,,,,Whether the commission rule is eligible for payout calculations.,Required; Apply documented table-level business rules.
+commission_rules,effective_from,DATETIME,False,False,,False,,,,Inclusive timestamp when this commission rule starts applying.,Nullable; Apply documented table-level business rules.
+commission_rules,effective_to,DATETIME,False,False,,False,,,,Rule end timestamp; null means no scheduled end.,Nullable; Apply documented table-level business rules.
+customer_reviews,id,INTEGER,True,True,,True,,,,Internal primary key identifying this customer review.,Required; primary key; Apply documented table-level business rules.
+customer_reviews,order_id,INTEGER,True,False,orders.id,False,,,,Order reviewed by the customer.,Required; foreign key to orders.id; Apply documented table-level business rules.
+customer_reviews,rating,INTEGER,True,False,,False,,Integer from 1 to 5,stars,Customer rating from 1 to 5 stars.,Required; Allowed values: Integer from 1 to 5; Units: stars.
+customer_reviews,comment,VARCHAR(500),True,False,,False,,,,Text feedback submitted by the customer for the reviewed order.,Required; Apply documented table-level business rules.
+disputes,id,INTEGER,True,True,,True,,,,Internal primary key identifying this dispute.,Required; primary key; Apply documented table-level business rules.
+disputes,business_id,VARCHAR(40),False,False,,True,,,,Stable external dispute ID in DSP-2026-###### format.,Nullable; unique; Apply documented table-level business rules.
+disputes,order_id,INTEGER,True,False,orders.id,False,,,,Order associated with the dispute.,Required; foreign key to orders.id; Apply documented table-level business rules.
+disputes,amount,FLOAT,True,False,,False,,,currency units,Disputed amount in synthetic currency units.,Required; Units: currency units.
+disputes,status,VARCHAR(30),True,False,,False,,"['open', 'resolved']",,Dispute state: open or resolved.,"Required; Allowed values: ['open', 'resolved']; Apply documented table-level business rules."
+disputes,created_at,DATETIME,True,False,,False,,,,Timestamp when the dispute record was created.,Required; Apply documented table-level business rules.
+entity_events,id,INTEGER,True,True,,True,,,,Internal primary key identifying this lifecycle event.,Required; primary key; Apply documented table-level business rules.
+entity_events,entity_type,VARCHAR(50),True,False,,False,,,,Entity category whose lifecycle event is recorded.,Required; Apply documented table-level business rules.
+entity_events,entity_id,VARCHAR(80),True,False,,False,,,,External identifier of the entity whose lifecycle changed.,Required; Apply documented table-level business rules.
+entity_events,event_type,VARCHAR(80),True,False,,False,,,,"Event category, such as creation or status change.",Required; Apply documented table-level business rules.
+entity_events,old_value,VARCHAR(500),False,False,,False,,,,Previous state; null for the initial event.,Nullable; Apply documented table-level business rules.
+entity_events,new_value,VARCHAR(500),False,False,,False,,,,State after the event.,Nullable; Apply documented table-level business rules.
+entity_events,occurred_at,DATETIME,True,False,,False,,,,Timestamp when the event occurred.,Required; Apply documented table-level business rules.
+entity_events,details,VARCHAR(1000),False,False,,False,,,,Human-readable explanation of the synthetic event.,Nullable; Apply documented table-level business rules.
+fulfillments,id,INTEGER,True,True,,True,,,,Internal primary key identifying this fulfillment record.,Required; primary key; Apply documented table-level business rules.
+fulfillments,business_id,VARCHAR(80),False,False,,True,,,,Stable fulfillment ID derived from the related order-line ID.,Nullable; unique; Apply documented table-level business rules.
+fulfillments,order_id,INTEGER,True,False,orders.id,False,,,,Order being fulfilled.,Required; foreign key to orders.id; Apply documented table-level business rules.
+fulfillments,order_line_id,INTEGER,False,False,order_lines.id,False,,,,Order line handled by this fulfillment.,Nullable; foreign key to order_lines.id; Apply documented table-level business rules.
+fulfillments,status,VARCHAR(30),True,False,,False,,"['delivered', 'shipped', 'processing']",,"Fulfillment state; processing, shipped, or delivered.","Required; Allowed values: ['delivered', 'shipped', 'processing']; Apply documented table-level business rules."
+fulfillments,shipped_at,DATETIME,False,False,,False,,,,Timestamp when shipment was dispatched.,Nullable; Apply documented table-level business rules.
+fulfillments,delivered_at,DATETIME,False,False,,False,,,,Delivery timestamp; null until delivery.,Nullable; Apply documented table-level business rules.
+order_lines,id,INTEGER,True,True,,True,,,,Internal primary key identifying this order line.,Required; primary key; Apply documented table-level business rules.
+order_lines,business_id,VARCHAR(60),False,False,,True,,,,Stable external order-line ID in LINE-######## format.,Nullable; unique; Apply documented table-level business rules.
+order_lines,order_id,INTEGER,True,False,orders.id,False,,,,Order containing this order line.,Required; foreign key to orders.id; Apply documented table-level business rules.
+order_lines,listing_id,INTEGER,True,False,product_listings.id,False,,,,Product listing purchased on this line.,Required; foreign key to product_listings.id; Apply documented table-level business rules.
+order_lines,quantity,INTEGER,True,False,,False,,,items,Number of units purchased; expected to be a positive integer.,Required; Units: items.
+order_lines,unit_price,FLOAT,True,False,,False,,,currency units,Price per unit at order time in synthetic currency units.,Required; Units: currency units.
+order_sellers,order_id,INTEGER,True,True,orders.id,True,,,,Order associated with this seller participation record.,Required; primary key; foreign key to orders.id; Apply documented table-level business rules.
+order_sellers,seller_id,INTEGER,True,True,sellers.id,True,,,,Seller participating in the associated order.,Required; primary key; foreign key to sellers.id; Apply documented table-level business rules.
+order_sellers,created_at,DATETIME,False,False,,False,,,,Timestamp when the order-seller association was recorded.,Nullable; Apply documented table-level business rules.
+orders,id,INTEGER,True,True,,True,,,,Internal primary key identifying the order.,Required; primary key; Apply documented table-level business rules.
+orders,business_id,VARCHAR(40),False,False,,True,,,,Stable external order ID in ORD-2026-###### format.,Nullable; unique; Apply documented table-level business rules.
+orders,seller_id,INTEGER,False,False,sellers.id,False,,,,Primary seller associated with this order for payout reconciliation.,Nullable; foreign key to sellers.id; Apply documented table-level business rules.
+orders,status,VARCHAR(30),True,False,,False,,"['delivered', 'shipped', 'processing']",,"Order lifecycle state; processing, shipped, or delivered.","Required; Allowed values: ['delivered', 'shipped', 'processing']; Apply documented table-level business rules."
+orders,total_amount,FLOAT,True,False,,False,,,currency units,Sum of the order line totals in synthetic currency units.,Required; Units: currency units.
+orders,created_at,DATETIME,True,False,,False,,,,Timestamp when the order was created.,Required; Apply documented table-level business rules.
+payout_lines,id,INTEGER,True,True,,True,,,,Internal primary key identifying this payout line.,Required; primary key; Apply documented table-level business rules.
+payout_lines,payout_id,INTEGER,True,False,payouts.id,True,,,,Payout header containing this line.,Required; foreign key to payouts.id; unique; Apply documented table-level business rules.
+payout_lines,order_id,INTEGER,True,False,orders.id,True,,,,Order whose seller proceeds are represented by this line.,Required; foreign key to orders.id; unique; Apply documented table-level business rules.
+payout_lines,gross_amount,FLOAT,True,False,,False,,,currency units,Seller gross proceeds before deductions.,Required; Units: currency units.
+payout_lines,commission_amount,FLOAT,True,False,,False,,,currency units,Commission withheld from seller gross proceeds.,Required; Units: currency units.
+payout_lines,dispute_deduction,FLOAT,True,False,,False,,,currency units,Resolved-dispute amount withheld from seller proceeds.,Required; Units: currency units.
+payout_lines,refund_amount,FLOAT,True,False,,False,,,currency units,Refund amount withheld from seller proceeds.,Required; Units: currency units.
+payout_lines,reserve_amount,FLOAT,True,False,,False,,,currency units,Reserve retained from seller proceeds.,Required; Units: currency units.
+payout_lines,net_amount,FLOAT,True,False,,False,,,currency units,"Gross minus commission, dispute deduction, refund, and reserve.",Required; Units: currency units.
+payouts,id,INTEGER,True,True,,True,,,,Internal primary key identifying the payout header.,Required; primary key; Apply documented table-level business rules.
+payouts,business_id,VARCHAR(40),False,False,,True,,,,Stable external payout ID in PAYOUT-2026-###### format.,Nullable; unique; Apply documented table-level business rules.
+payouts,seller_id,INTEGER,True,False,sellers.id,False,,,,Seller receiving the payout.,Required; foreign key to sellers.id; Apply documented table-level business rules.
+payouts,status,VARCHAR(30),True,False,,False,,"['paid', 'pending', 'held']",,"Payout processing state, such as pending, held, or paid.","Required; Allowed values: ['paid', 'pending', 'held']; Apply documented table-level business rules."
+payouts,total_amount,FLOAT,True,False,,False,,,currency units,Payout header total; should match its payout-line net total.,Required; Units: currency units.
+payouts,created_at,DATETIME,True,False,,False,,,,Timestamp when the payout record was created or paid.,Required; Apply documented table-level business rules.
+payouts,hold_released_at,DATETIME,False,False,,False,,,,Timestamp the payout hold was released; null while unreleased.,Nullable; Apply documented table-level business rules.
+product_listings,id,INTEGER,True,True,,True,,,,Internal primary key identifying the product listing.,Required; primary key; Apply documented table-level business rules.
+product_listings,business_id,VARCHAR(60),False,False,,True,,,,Stable listing ID containing seller ID and seller-local sequence.,Nullable; unique; Apply documented table-level business rules.
+product_listings,seller_id,INTEGER,True,False,sellers.id,False,,,,Internal ID of the seller owning this listing.,Required; foreign key to sellers.id; Apply documented table-level business rules.
+product_listings,title,VARCHAR(200),True,False,,False,,,,Display title of the listed product.,Required; Apply documented table-level business rules.
+product_listings,price,FLOAT,True,False,,False,,,currency units,Listing unit price in synthetic currency units.,Required; Units: currency units.
+product_listings,status,VARCHAR(20),True,False,,False,,"['active', 'inactive']",,Listing availability state; active listings can be purchased.,"Required; Allowed values: ['active', 'inactive']; Apply documented table-level business rules."
+sellers,id,INTEGER,True,True,,True,,,,Internal primary key identifying the seller.,Required; primary key; Apply documented table-level business rules.
+sellers,business_id,VARCHAR(30),False,False,,True,,,,Stable external seller ID in SELL-###### format.,Nullable; unique; Apply documented table-level business rules.
+sellers,name,VARCHAR(120),True,False,,False,,,,Display name of the seller account.,Required; Apply documented table-level business rules.
+sellers,status,VARCHAR(20),True,False,,False,,"['active', 'suspended']",,Seller account state; suspended sellers should not have active listings.,"Required; Allowed values: ['active', 'suspended']; Apply documented table-level business rules."
+sellers,created_at,DATETIME,True,False,,False,,,,Timestamp when the seller account was created.,Required; Apply documented table-level business rules.

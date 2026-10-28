@@ -1,0 +1,43 @@
+{
+  "dataset": "SellerPulse synthetic marketplace dataset",
+  "provenance": "Synthetic/generated data; not real customer or seller records.",
+  "seed": 4242,
+  "scale": "full",
+  "generation_command": "python -m backend.app.seed --scale full --seed 4242",
+  "sql_export": "data/synthetic_seed_export.sql",
+  "sql_sha256": "2282c8ae309390bf19a5f3b64838f72bac15dd93f4c07f87285284ec625288a1",
+  "generator_sha256": {
+    "backend/app/seed.py": "f0af3b88c7877ee0731abfeab429ce30a7f241453fa91fc36f5c80977e0b70b1",
+    "backend/app/generator_config.py": "98989a4f53a0408922315c15c2478d5503a48038676e13675592270e44d80dde"
+  },
+  "table_counts": {
+    "commission_rules": 2,
+    "customer_reviews": 10000,
+    "disputes": 10000,
+    "entity_events": 293306,
+    "fulfillments": 166667,
+    "order_lines": 166667,
+    "order_sellers": 166667,
+    "orders": 100000,
+    "payout_lines": 16639,
+    "payouts": 16639,
+    "product_listings": 20000,
+    "sellers": 2000
+  },
+  "tables": [
+    "commission_rules",
+    "customer_reviews",
+    "disputes",
+    "entity_events",
+    "fulfillments",
+    "order_lines",
+    "order_sellers",
+    "orders",
+    "payout_lines",
+    "payouts",
+    "product_listings",
+    "sellers"
+  ],
+  "created_at_utc": "2026-10-28T03:38:19.219012+00:00",
+  "note": "Counts aligned to data/exports/validation_summary.json. Generator and SQL export checksums remain unchanged; verify both artifacts originate from the same dataset before claiming full reproducibility."
+}

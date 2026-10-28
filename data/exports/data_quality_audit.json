@@ -1,0 +1,100 @@
+{
+  "missing_model_tables": [],
+  "primary_keys": {
+    "commission_rules": [
+      "id"
+    ],
+    "customer_reviews": [
+      "id"
+    ],
+    "disputes": [
+      "id"
+    ],
+    "entity_events": [
+      "id"
+    ],
+    "fulfillments": [
+      "id"
+    ],
+    "order_lines": [
+      "id"
+    ],
+    "order_sellers": [
+      "order_id",
+      "seller_id"
+    ],
+    "orders": [
+      "id"
+    ],
+    "payout_lines": [
+      "id"
+    ],
+    "payouts": [
+      "id"
+    ],
+    "product_listings": [
+      "id"
+    ],
+    "sellers": [
+      "id"
+    ]
+  },
+  "foreign_key_orphans": {
+    "commission_rules.seller_id->sellers": 0,
+    "customer_reviews.order_id->orders": 0,
+    "disputes.order_id->orders": 0,
+    "fulfillments.order_id->orders": 0,
+    "fulfillments.order_line_id->order_lines": 0,
+    "order_lines.order_id->orders": 0,
+    "order_lines.listing_id->product_listings": 0,
+    "order_sellers.order_id->orders": 0,
+    "order_sellers.seller_id->sellers": 0,
+    "orders.seller_id->sellers": 0,
+    "payout_lines.payout_id->payouts": 0,
+    "payout_lines.order_id->orders": 0,
+    "payouts.seller_id->sellers": 0,
+    "product_listings.seller_id->sellers": 0
+  },
+  "business_ids": {
+    "sellers": {
+      "missing": 0,
+      "duplicate_groups": 0
+    },
+    "product_listings": {
+      "missing": 0,
+      "duplicate_groups": 0
+    },
+    "orders": {
+      "missing": 0,
+      "duplicate_groups": 0
+    },
+    "order_lines": {
+      "missing": 0,
+      "duplicate_groups": 0
+    },
+    "fulfillments": {
+      "missing": 0,
+      "duplicate_groups": 0
+    },
+    "disputes": {
+      "missing": 0,
+      "duplicate_groups": 0
+    },
+    "payouts": {
+      "missing": 0,
+      "duplicate_groups": 0
+    }
+  },
+  "fulfillment_date_order_errors": 0,
+  "fulfillment_order_line_mismatches": 0,
+  "order_lines_without_fulfillment": 0,
+  "order_line_seller_link_mismatches": 0,
+  "orders_without_seller_links": 0,
+  "multi_seller_order_count": 66667,
+  "order_total_mismatches": 0,
+  "data_dictionary_comparison": {},
+  "dictionary_table_count_compared": 0,
+  "error_count": 0,
+  "errors": [],
+  "status": "PASS"
+}

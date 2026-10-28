@@ -1,0 +1,12 @@
+{
+  "seed": 4242,
+  "scale": "full",
+  "description": "Ground-truth labels for synthetic SellerPulse anomaly scenarios. Labels belong in this file, not in model input features.",
+  "anomalies": {
+    "payout_before_delivery_or_hold_release": [18126],
+    "commission_applied_twice": [18127],
+    "suspended_seller_listing_active": [50],
+    "dispute_not_deducted": [18128],
+    "payout_total_mismatch": [18129]
+  }
+}
