@@ -1,50 +1,66 @@
 # SellerPulse — Seller Operations & Payout Intelligence
 
-SellerPulse is a full-stack marketplace operations application that helps monitor sellers, validate payout calculations, and identify financial and operational anomalies using synthetic marketplace data.
+SellerPulse is a full-stack marketplace operations solution built to monitor seller performance, order fulfillment, disputes, commissions, and payout eligibility. It uses synthetic marketplace data to demonstrate business-rule validation, payout reconciliation, anomaly detection, and data-quality auditing.
 
 ## Problem Statement
 
-Online marketplaces process large volumes of sellers, listings, orders, deliveries, commissions, disputes, and payouts. Manually validating these operations becomes difficult as transaction volumes grow.
+Online marketplaces coordinate thousands of sellers, product listings, orders, shipments, disputes, commissions, and payouts. As transaction volumes increase, maintaining data consistency and enforcing business rules becomes increasingly complex.
 
-Operational inconsistencies can lead to premature payouts, duplicate commission deductions, missing dispute deductions, incorrect payout totals, and invalid seller listings.
+Premature payouts, duplicate commission deductions, missing dispute deductions, suspended sellers with active listings, and incorrect payout totals can create financial discrepancies and operational risks.
 
-**SellerPulse addresses these challenges through structured marketplace data, business-rule validation, payout reconciliation, and anomaly detection.** It provides dashboard metrics and API endpoints to help users identify records that may require investigation.
+**SellerPulse addresses these challenges through relational data modelling, conditional business rules, payout reconciliation, anomaly detection, and validation reports.** It provides a structured way to identify operational exceptions and records that may require further investigation.
 
-## Problem Statement Coverage
+## Solution and Requirement Coverage
 
-| Requirement / challenge | SellerPulse implementation |
+| Business requirement | SellerPulse implementation |
 |---|---|
-| Monitor marketplace operations | Dashboard metrics and API endpoints |
-| Manage seller and listing information | Sellers and product listings data |
-| Track orders and fulfillment | Orders, order lines, seller-level orders, and fulfillments |
-| Validate payout calculations | Payout and payout-line records with reconciliation checks |
-| Apply commission rules | Commission rules and duplicate commission detection |
-| Enforce payout eligibility | Checks for payouts before delivery or hold release |
-| Identify invalid seller listings | Suspended seller with active listing detection |
-| Account for disputes | Missing dispute deduction detection |
-| Identify incorrect payout totals | Payout total mismatch detection |
-| Validate results reproducibly | Synthetic data, fixed seed, ground-truth labels, and validation reports |
-| Test business logic | Automated Pytest suite |
+| Monitor seller operations | Seller, listing, order, fulfillment, and review records |
+| Manage marketplace orders | Orders, order lines, and seller-order relationships |
+| Support multi-seller orders | `order_sellers` bridge table |
+| Track order fulfillment | Fulfillment records linked to order-line data |
+| Manage disputes and chargebacks | Dispute records and payout deduction fields |
+| Apply commission rules | Commission rules and commission calculations |
+| Validate payout eligibility | Delivery and hold-window checks |
+| Detect operational exceptions | Five targeted anomaly scenarios |
+| Preserve event traceability | `entity_events` lifecycle-history table |
+| Document data fields and relationships | Data dictionary and schema documentation |
+| Validate data quality | Data-quality and export-validation reports |
+| Separate known anomaly labels | Dedicated `data/ground_truth.json` |
+| Support repeatable data generation | Fixed seed and source manifest |
+| Test core business logic | Automated Pytest suite |
 
-These implementations address the documented project scope. Anomaly flags identify potential inconsistencies; they do not independently prove fraud or guarantee that every possible real-world anomaly will be detected.
+The solution is designed around the supplied marketplace workflow. Validation claims are limited to the checks and evidence documented in the repository.
 
 ## Key Features
 
-- Seller operations dashboard
+- Seller operations and marketplace dashboard
 - Payout and commission reconciliation
-- Five targeted anomaly detection scenarios
-- FastAPI REST endpoints
-- SQLite relational database with SQLAlchemy
-- Reproducible synthetic marketplace data
-- Validation reports and automated tests
+- Detection of financial and operational anomalies
+- FastAPI endpoints for dashboard metrics and anomaly records
+- SQLite relational database using SQLAlchemy
+- Synthetic marketplace data for reproducible testing
+- Data dictionary, schema documentation, and validation reports
+- Automated tests for business rules and anomaly detection
 
-## Tech Stack
+## Technology Stack
 
 - **Frontend:** React, TypeScript, Vite
 - **Backend:** Python, FastAPI, Uvicorn
 - **Database:** SQLite, SQLAlchemy
 - **Testing:** Pytest
-- **Version control:** Git and GitHub
+- **Version Control:** Git and GitHub
+
+## Anomaly Detection
+
+SellerPulse covers five required negative scenarios:
+
+1. **Premature payout:** Payout occurs before delivery or the required hold-release condition.
+2. **Duplicate commission:** Commission is deducted more than once.
+3. **Suspended seller with an active listing:** Seller status conflicts with listing activity.
+4. **Missing dispute deduction:** A required dispute amount is not deducted from the payout.
+5. **Payout total mismatch:** The recorded payout differs from its expected line-level calculation.
+
+These scenarios represent deliberate exceptions in the synthetic dataset. Anomaly findings identify potential issues for review; they do not independently establish fraud.
 
 ## Project Structure
 
@@ -63,15 +79,19 @@ SellerPulse/
 
 ## Setup and Installation
 
-Follow these steps to run SellerPulse on Windows.
+The following instructions are intended for Windows using PowerShell.
 
 ### 1. Install prerequisites
 
-Install Python 3.12.x from [python.org](https://www.python.org/downloads/), Node.js 20.x from [nodejs.org](https://nodejs.org/), and Git from [git-scm.com](https://git-scm.com/).
+Install the following software:
+
+- **Python 3.12.x:** [Download Python](https://www.python.org/downloads/)
+- **Node.js 20.x:** [Download Node.js](https://nodejs.org/)
+- **Git:** [Download Git](https://git-scm.com/)
 
 During Python installation, enable **Add Python to PATH**.
 
-Verify the installations in PowerShell:
+Verify the installations:
 
 ```powershell
 python --version
@@ -81,25 +101,40 @@ npm --version
 git --version
 ```
 
-The development environment used Python 3.12.0, Node.js 20.18.3, and npm 10.8.2.
+The development environment used Python 3.12.0, Node.js 20.18.3, and npm 10.8.2. Reopen the terminal if a newly installed command is not recognized.
 
 ### 2. Clone the repository
+
+Open PowerShell or the VS Code terminal:
 
 ```powershell
 git clone https://github.com/vijitkumar07/SellerPulse.git
 cd SellerPulse
 ```
 
+Optionally, open the project in VS Code:
+
+```powershell
+code .
+```
+
+Run backend commands from the repository root unless otherwise specified.
+
 ### 3. Create and activate the Python environment
 
-Run these commands from the repository root:
+Create a virtual environment:
 
 ```powershell
 python -m venv .venv
+```
+
+Activate it:
+
+```powershell
 .\.venv\Scripts\Activate.ps1
 ```
 
-If PowerShell blocks activation, run:
+If PowerShell blocks activation, run the following in the same terminal and retry:
 
 ```powershell
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
@@ -108,106 +143,150 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 
 ### 4. Install backend dependencies
 
+Upgrade pip and install the dependencies declared by the project:
+
 ```powershell
 python -m pip install --upgrade pip
 python -m pip install -r backend/requirements.txt
 python -m pip check
 ```
 
-The backend dependency set includes FastAPI, Uvicorn, Pytest, HTTPX, and SQLAlchemy, with versions specified in the project requirements.
+The backend dependency set includes FastAPI, Uvicorn, Pytest, HTTPX, and SQLAlchemy. Package versions are specified in the project's dependency files.
 
-### 5. Initialize and seed the database
+### 5. Initialize the database
 
-From the repository root:
+From the repository root, run:
 
 ```powershell
 python -m backend.app.init_db
+```
+
+This initializes the SQLite database and creates the application's database tables.
+
+### 6. Generate synthetic marketplace data
+
+Run:
+
+```powershell
 python -m backend.app.seed --scale full --seed 4242
 ```
 
-Wait for database initialization and data generation to finish before starting the backend.
+Wait for data generation to finish before starting the backend.
 
-The fixed seed supports reproducible synthetic data generation.
+The fixed seed supports reproducible data generation using the configured generator.
 
-### 6. Start the backend
+### 7. Start the backend
+
+From the repository root:
 
 ```powershell
 python -m uvicorn backend.app.main:app --reload
 ```
 
-Keep this terminal open.
+Keep this terminal running.
 
-- Backend: [http://127.0.0.1:8000](http://127.0.0.1:8000)
-- API documentation: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
-- Health endpoint: [http://127.0.0.1:8000/health](http://127.0.0.1:8000/health)
+- **Backend:** [http://127.0.0.1:8000](http://127.0.0.1:8000)
+- **API documentation:** [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
+- **Health endpoint:** [http://127.0.0.1:8000/health](http://127.0.0.1:8000/health)
 
-### 7. Install frontend dependencies
+### 8. Install frontend dependencies
 
-Open a second terminal and navigate to the frontend:
+Open a second terminal in VS Code. Keep the backend terminal running.
+
+Navigate to the frontend directory:
 
 ```powershell
 cd frontend
+```
+
+Install the frontend dependencies:
+
+```powershell
 npm install
 ```
 
 Wait for installation to complete.
 
-### 8. Start the frontend
+### 9. Start the frontend
 
-In the same terminal:
+In the same frontend terminal, run:
 
 ```powershell
 npm run dev
 ```
 
-Open the URL printed by Vite, normally [http://localhost:5173](http://localhost:5173).
+Open the local URL displayed by Vite, normally [http://localhost:5173](http://localhost:5173).
 
-Keep both backend and frontend terminals running while using the application.
+Keep both terminals running while using the application:
 
-### 9. Run tests
+- Terminal 1: FastAPI backend
+- Terminal 2: React frontend
 
-Open another terminal at the repository root and activate the virtual environment if necessary.
+## Database Schema
+
+SellerPulse uses 12 relational tables:
+
+`sellers`, `product_listings`, `orders`, `order_sellers`, `order_lines`, `fulfillments`, `customer_reviews`, `disputes`, `commission_rules`, `payouts`, `payout_lines`, and `entity_events`.
+
+The schema documentation describes table definitions, keys, relationships, and cardinality. The data dictionary provides field-level information and validation guidance.
+
+See [docs/SCHEMA.md](docs/SCHEMA.md) for the complete schema.
+
+## Synthetic Data and Dataset Coverage
+
+The recorded full dataset contains the following entity counts:
+
+| Entity | Records |
+|---|---:|
+| Sellers | 2,000 |
+| Product listings | 20,000 |
+| Orders | 100,000 |
+| Order lines | 166,667 |
+| Seller-level orders | 166,667 |
+| Fulfillments | 166,667 |
+| Customer reviews | 10,000 |
+| Disputes | 10,000 |
+| Commission rules | 2 |
+| Payouts | 18,129 |
+| Payout lines | 18,129 |
+| Entity events | 524,650 |
+
+These figures are the counts recorded in the source manifest. The dataset is synthetic and is intended for development, testing, and demonstration rather than representing real marketplace transactions.
+
+The generation workflow is designed to support interconnected marketplace records, split orders, fulfillment, reviews, disputes, commission rules, reserve holds, seller suspension, and payout eligibility.
+
+## Validation and Testing
+
+The repository includes validation artifacts, data exports, a source manifest, separate ground-truth labels, and automated tests.
+
+The documented validation work covers:
+
+- Primary-key presence and uniqueness checks
+- Foreign-key integrity for audited relationships
+- Data dictionary consistency
+- Payout arithmetic and reconciliation checks
+- Detection of the five seeded anomaly scenarios
+- Dataset counts and SHA-256 checksums
+
+The recorded data dictionary audit reports 12 tables and 73 fields with a passing result. The data-quality audit reports no errors and no orphan references among the relationships it checked.
+
+The documented test run passed all eight tests, covering the five anomaly scenarios, finding structure, duplicate findings, hold-window logic, commission calculation, net payout calculation, and invalid deductions.
+
+Run the tests from the repository root with the Python virtual environment activated:
 
 ```powershell
 python -m pytest -v
 ```
 
-## Anomaly Detection
+Supporting reports are available in `data/exports/`, with dataset metadata in `data/source_manifest.json`.
 
-SellerPulse implements checks for these five scenarios:
+**Reproducibility note:** A fixed seed and recorded checksums support repeatability, but matching row counts alone do not prove that every artifact came from the same database snapshot. A clean regeneration and checksum comparison are needed to independently establish end-to-end reproducibility.
 
-1. **Premature payout:** A payout occurs before delivery or the required hold-release condition.
-2. **Duplicate commission:** Commission is deducted more than once.
-3. **Suspended seller with active listing:** Seller status conflicts with listing status.
-4. **Missing dispute deduction:** A required dispute amount is not deducted from the payout.
-5. **Payout total mismatch:** A payout's recorded total differs from the expected amount.
+## Ground Truth and Evaluation
 
-## Data and Validation
+Known anomaly labels are maintained separately in `data/ground_truth.json`. This separation is intended to support evaluation without directly supplying ground-truth labels as ordinary detector input features.
 
-The project includes synthetic marketplace data, a source manifest, ground-truth labels, and validation reports.
-
-The documented dataset contains:
-
-- 2,000 sellers
-- 20,000 product listings
-- 100,000 orders
-- 166,667 order lines
-- 166,667 seller-level orders
-- 166,667 fulfillments
-- 10,000 customer reviews
-- 10,000 disputes
-- 2 commission rules
-- 16,639 payouts
-- 16,639 payout lines
-- 293,306 entity events
-
-Ground-truth labels are maintained separately from ordinary detector input to support evaluation without directly feeding those labels into the detector.
-
-Validation reports and data exports are available in `data/exports/`. They document checks performed on the dataset and project outputs; they should not be interpreted as proof of production readiness or complete detection of all possible anomalies.
-
-## Database Schema
-
-See [docs/SCHEMA.md](docs/SCHEMA.md) for table definitions, field descriptions, and relationships.
+The validation reports and automated tests provide evidence for the checks performed. Their scope should not be interpreted as proof that every possible business rule or real-world exception is covered.
 
 ## Screenshots
 
@@ -227,16 +306,19 @@ See [docs/SCHEMA.md](docs/SCHEMA.md) for table definitions, field descriptions, 
 
 ![SellerPulse Screenshot 8](docs/image8.png)
 
-## AI-Assisted Development
+## AI Assistance
 
-Development assistance and prompt history are documented in [PROMPT_HISTORY.md](PROMPT_HISTORY.md).
+AI tools were used during development to help with problem-solving, debugging, and documentation. The prompts and relevant development notes are available in [PROMPT_HISTORY.md](PROMPT_HISTORY.md).
 
-## Security and Limitations
+I reviewed the suggested changes and worked on validating the project through its code, data checks, and tests. I am responsible for the final implementation and for explaining the decisions made during development.
 
-- The project uses synthetic data rather than real marketplace records.
-- Anomaly results indicate potential issues requiring review.
-- The application is a development and demonstration project, not a production-ready financial platform.
-- Do not commit credentials, environment files, or local database files.
+## Limitations and Security
+
+SellerPulse uses synthetic marketplace data, so no real seller or customer information is involved. The anomaly checks are designed to flag suspicious records for further review, not to automatically determine fraud.
+
+The project is built as a demonstration of marketplace operations and payout validation. Before using it in a real production environment, additional testing, security controls, and operational safeguards would be needed.
+
+Credentials, API keys, environment files, local databases, and unnecessary backup files should not be committed to the public repository.
 
 ## Author
 
